@@ -1,0 +1,180 @@
+ /* 返回 */
+ .back{
+    height: 9%;
+    width: 5.3%;
+    position: absolute;
+    top: 5%;
+    left: 3%;
+}
+/* 进度条 */
+.progress{
+    height: 14.2%;
+    width: 56.7%;
+    position: relative;
+    left: 21.5%;
+
+}
+.progress span{
+    font-size: 0.5rem;
+    float: left;
+    margin-top: 5%;
+}
+.progress span:nth-child(1){
+    color:#4EB7E3;
+    text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.6);
+}
+.progress .lastZ{
+    color:#ffffff;
+    margin-left: 1.7%;
+}
+.slide{
+    height: 23.5%;
+    width: 88.9%;
+    float: left;
+    margin-left: 1.7%;
+    margin-top: 7.5%;
+}
+.progress p{
+    width: 11.6%;
+    font-size: 0.5rem;
+    position: absolute;
+    top: 41%;
+    left: 0;
+    z-index: 21;
+    text-align: center;
+}
+.progress .moveXX{
+    height: 79%;
+    width: 11.6%;
+    position: absolute;
+    top: 21%;
+    left: 0;
+    z-index: 20;
+}
+/* 下拉按钮 */
+.xiaLa{
+    height: 4.4%;
+    width: 2.5%;
+    position: absolute;
+    top: 6.5%;
+    right: 18.8%;
+}
+.xiaLa img{
+    width: 100%;
+    height: 100%;   
+}
+/* 卡片列表 */
+.kpList{
+    height: 11.6%;
+    width: 50.4%;
+    position: absolute;
+    top: 14.2%;
+    left: 24.8%;
+    overflow: hidden;
+    display: none;
+    z-index: 76;
+}
+.kpList #swiper-container2{
+    height: 100%;
+    width: 100%;
+}
+/* 黑板 */
+.blackboard{
+    height: 65.6%;
+    width: 71.3%;
+    position: relative;
+    top: 5.5%;
+    left: 14.4%;
+    background: url(../image/2blackboard.png) no-repeat;
+    background-size: cover;
+}
+.blackboard .swiper-container{
+    height: 100%;
+    width: 100%;
+}
+/*引入外部字体*/
+@font-face{
+    font-family: 'comfortaaBold';
+    src : url('../js/COMFORTAA-BOLD.TTF');
+}
+
+
+
+
+
+/* 字母 */
+.blackboard .aLetter{
+    width: 42.4%;
+    margin-left: 28.8%;
+    margin-top: 10%;
+}
+.blackboard .aLetterP{
+    opacity: 0;
+}
+/* 单词 */
+.blackboard .danCi1,
+.blackboard .danCi2,
+.blackboard .danCi3{
+    height: 56.5%;
+    width: 29.2%;
+    position: absolute;
+    top: 16.1%;
+    left: 11.5%;
+}
+.blackboard .danCi1D,
+.blackboard .danCi2D,
+.blackboard .danCi3D{
+    height: 82%;
+    width: 57%;
+    position: relative;
+    top: 0;
+    left: 18%;
+    white-space:nowrap;
+    /* background-color: red; */
+    margin:auto;
+    
+}
+.blackboard .danCi1P,
+.blackboard .danCi2P,
+.blackboard .danCi3P{
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    transform: translateY(-50%);
+    display: inline-block;
+    font-family: 'comfortaaBold';
+    font-size: 2rem; 
+    letter-spacing: -7px;
+    transform: scale(0.5);
+    text-align: center;
+
+}
+/* 句子 */
+.blackboard .juZi{
+    height: 55.6%;
+    width: 47.9%;
+    position: absolute;
+    top: 5.8%;
+    left: 25.1%;
+}
+.blackboard .juZiD{
+    height: 17%;
+    width: 100%;
+    position: absolute;
+    bottom: 18%;
+    text-align: center;
+}
+.blackboard .juZiP{
+    font-family: 'comfortaaBold';  
+    font-size: 0.6rem;
+    letter-spacing: 0px;
+    transform: scale(0.9);
+}
+/* 音频按钮 */
+.live{
+    width: 9.2%;
+    position: absolute;
+    left: 45.5%;
+    bottom: 3.7%;
+}

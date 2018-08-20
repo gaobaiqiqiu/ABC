@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>英文字母ABC-首页</title>
+    <link rel="stylesheet" href="css/common.css" type="text/css" />
+    <style>
+        .ren{
+            height: 405px;
+            width: 467px;
+            position: absolute;
+            top: 275px;
+            left: 155px;
+        }
+        .ting{
+            height: 482px;
+            width: 550px;
+            position: absolute;
+            top: 513px;
+            left: 685px;
+        }
+        .pin{
+            height: 397px;
+            width: 396px;
+            position: absolute;
+            top: 306px;
+            left: 1327px;
+        }
+    </style>
+</head>
+<body>
+    <div id="dv" style="background: url(image/1bj.png) no-repeat;background-size: cover;position: relative">
+        <img src="image/1ren.png" class="ren">
+        <img src="image/1ting.png" class="ting">
+        <img src="image/1pin.png" class="pin">
+    </div>
+</body>
+<script src="js/common.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+    // 适配
+    var adaptationList = [".ren", ".ting", ".pin"];
+    {
+        var docuWidth = document.documentElement.clientWidth;  //可见区域宽度
+        var docuHeight = document.documentElement.clientHeight; //可见区域高度     
+        var sourceWidth = 1920;
+        var sourceHeight = 1080;
+        var bili = Math.min( docuWidth / sourceWidth, docuHeight / sourceHeight );     
+        function adaptation( obj ){
+            var height = parseInt( $(obj).css("height") ) * bili;
+            var width = parseInt( $(obj).css("width") ) * bili;
+            var top = parseInt( $(obj).css("top") ) * bili;
+            var left = parseInt( $(obj).css("left") ) * bili;        
+            $(obj).css({
+                'height': height + "px",
+                'width': width + "px",
+                'top': top + "px",
+                'left': left + "px"
+            });
+        }
+        for( var item in adaptationList ){
+            adaptation($(adaptationList[item]));
+        }
+    }
+
+    $('.ren').click(function(){
+        window.location.href = 'ren.html';
+    })
+    $('.ting').click(function(){
+        window.location.href = 'ting.html';
+    })
+    $('.pin').click(function(){
+        window.location.href = 'pin.html';
+    })
+
+</script>
+</html>
+
+
+
+
+
