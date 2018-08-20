@@ -1,11 +1,8 @@
 var listZi = {a:['Aa'],b:['Bb']}
-
-
 //动态获取图片
 for( var item in fileList ){  //fileList文件列表
     var imgList = fileList[item];  //图片列表
     var listP = pList[item];
-    // console.log(item)
     var letterList = {};
     for(var i=0;i<imgList.length;i++){
         var str = imgList[i];
@@ -14,6 +11,13 @@ for( var item in fileList ){  //fileList文件列表
         $('#swiper-container1 .swiper-wrapper').append(letterList[i])
     }
 }
+for(var item2 in fileListPin){
+    var pinList = fileListPin[item2];
+    for(var j=0;j<pinList.length;j++){
+        $('#swiper-container2 .swiper-wrapper').append($($('#template2').html().replace('$url2$','pin/big/'+pinList[j])))
+    }
+}
+
 //点击返回首页
 $('.back').click(function(){
     window.location.href = 'index.html';
@@ -146,7 +150,9 @@ var swiper1 = new Swiper('#swiper-container1', {
                 $('.progress p')[0].innerText = 'Zz';
             }
 
-
+            $(".xiaLa img").attr('src','image/2xiala.png'); 
+            //隐藏卡片列表
+            $('.kpList').css('display','none');
 
         },
         slideChangeTransitionEnd: function () {

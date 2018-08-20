@@ -78,6 +78,11 @@
     height: 100%;
     width: 100%;
 }
+.kpList .swiper-slide img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
 /* 黑板 */
 .blackboard{
     height: 65.6%;

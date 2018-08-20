@@ -7,19 +7,80 @@
     <title>英文字母ABC-认一认</title>
     <link rel="stylesheet" href="css/common.css" type="text/css" />
     <style>
+         /* 返回 */
         .back{
-            height: 98px;
-            width: 102px;
+            height: 9%;
+            width: 5.3%;
             position: absolute;
-            top: 56px;
-            left:56px;
+            top: 5%;
+            left: 3%;
         }
+        /* 喇叭 */
         .laba{
-            height: 195px;
-            width: 195px;
+            height: 18.1%;
+            width: 10.2%;
             position: absolute;
-            top: 56px;
-            left:863px;
+            top: 5.2%;
+            left:44.9%;
+        }
+        /* 图片列表 */
+        .imgList{
+            height: 44.8%;
+            width: 100%;
+            position: absolute;
+            top: 33.3%;
+            left: 0;
+            /* background-color: red; */
+            display: flex;
+        }
+        /* 3张图 */
+        .imgList .img3{
+            width: 33.3%;
+        }
+        /* 4张图 */
+        .imgList .img4{
+            width: 25%;
+        }
+        /* 5张图 */
+        .imgList .img5{
+            width: 20%;
+        }
+        /* 对勾列表 */
+        .duiList{
+            height: 6.3%;
+            width: 100%;
+            position: absolute;
+            bottom: 16%;
+            left: 0;
+            /* background: blue; */
+            display: flex;  
+        }
+         /* 3张图 */
+         .duiList .img3{
+            width: 33.3%;
+            display: flex;
+            justify-content:center;
+        }
+        .duiList .img3 img{
+            width: 14.2%;
+        }
+         /* 4张图 */
+        .duiList .img4{
+            width: 25%;
+            display: flex;
+            justify-content:center;
+        }
+        .duiList .img4 img{
+            width: 19%;
+        }
+         /* 5张图 */
+         .duiList .img5{
+            width: 20%;
+            display: flex;
+            justify-content:center;
+        }
+        .duiList .img5 img{
+            width: 23.7%;
         }
     </style>
 </head>
@@ -30,36 +91,33 @@
         <img src="image/back.png" class="back">
         <!-- 喇叭 -->
         <img src="image/3laba.png" class="laba">
+        <!-- 图片列表 -->
+        <div class="imgList">
+            <img src="a.png" class="img3">
+            <img src="b.png" class="img3">
+            <img src="c.png" class="img3">
+        </div>
+        <!-- 对勾列表 -->
+        <div class="duiList">
+            <div class="img3">
+                <img src="image/3dui.png"> 
+            </div>
+            <div class="img3">
+                <img src="image/3dui.png"> 
+            </div>
+            <div class="img3">
+                <img src="image/3dui.png"> 
+            </div>
+        </div>
     </div>
 </body>
 <script src="js/common.js"></script>
 <script src="js/jquery.min.js"></script>
 <script>
-     // 适配
-     var adaptationList = [".back", ".laba"];
-    {
-        var docuWidth = document.documentElement.clientWidth;  //可见区域宽度
-        var docuHeight = document.documentElement.clientHeight; //可见区域高度     
-        var sourceWidth = 1920;
-        var sourceHeight = 1080;
-        var bili = Math.min( docuWidth / sourceWidth, docuHeight / sourceHeight );     
-        function adaptation( obj ){
-            var height = parseInt( $(obj).css("height") ) * bili;
-            var width = parseInt( $(obj).css("width") ) * bili;
-            var top = parseInt( $(obj).css("top") ) * bili;
-            var left = parseInt( $(obj).css("left") ) * bili;        
-            $(obj).css({
-                'height': height + "px",
-                'width': width + "px",
-                'top': top + "px",
-                'left': left + "px"
-            });
-        }
-        for( var item in adaptationList ){
-            adaptation($(adaptationList[item]));
-        }
-    }
-
+//点击返回首页
+$('.back').click(function(){
+    window.location.href = 'index.html';
+})
 
 
 
