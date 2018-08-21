@@ -1,7 +1,7 @@
 var listZi = {a:['Aa'],b:['Bb']}
 //动态获取图片
-for( var item in fileList ){  //fileList文件列表
-    var imgList = fileList[item];  //图片列表
+for( var item in fileListTing ){  //fileList文件列表
+    var imgList = fileListTing[item];  //图片列表
     var listP = pList[item];
     var letterList = {};
     for(var i=0;i<imgList.length;i++){

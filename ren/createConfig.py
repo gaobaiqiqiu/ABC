@@ -6,9 +6,9 @@ import os.path
 
 root = os.getcwd();
 
-fo = open("configTing.js", "w");
+fo = open("configRen.js", "w");
 
-fo.write( "var fileListTing = {" );
+fo.write( "var fileListRen = {" );
 def find( path, dir ):
     
     currPath = root;
