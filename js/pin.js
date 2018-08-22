@@ -6,7 +6,7 @@ for(var item in fileListPin){
     var pinList = fileListPin[item];
     // console.log(pinList)
     for(var i=0;i<pinList.length;i++){
-        var imgAll =$($('#template').html().replace('$urlPin$','pin/'+item+'/'+pinList[i]))[0]
+        var imgAll =$($('#template').html().replace('$urlPin$','http://www.dadpat.com/apk/ABC/pin/'+item+'/'+pinList[i]))[0]
         $('.swiper-container .swiper-wrapper').append(imgAll)
     }
 }
@@ -26,9 +26,10 @@ var mySwiper = new Swiper('.swiper-container', {
     on:{
         slideChangeTransitionStart:function () { 
             pg.hasStart = 0;
-            imgDongTai=$('.swiper-slide-active img').attr("src")  
+            imgDongTai=$('.swiper-slide-active img').attr("src")  //动态获取图片的src，给缩略图赋值
+            audioDongTai = imgDongTai.substring(0,imgDongTai.length-4);  //动态获取图片的src，拿相对于的音频文件
             $(function(){
-                pg = new puzzleGame({'img': $('.swiper-slide-active img').attr("src")});         
+                pg = new puzzleGame({'img': $('.swiper-slide-active img').attr("src")});      
             });
             $('.smallImg img').attr('src',imgDongTai)
             
@@ -305,7 +306,9 @@ var mySwiper = new Swiper('.swiper-container', {
             }
             this.imgCells.off('touchstart').off('touchmove').off('touchend');
             this.hasStart = 0;
+            console.log($(this))
             alert('恭喜您，成功完成本次游戏！');
+            
         }
     };
     /* 加入图片，运行代码 */

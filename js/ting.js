@@ -7,14 +7,14 @@ for( var item in fileListTing ){  //fileList文件列表
     for(var i=0;i<imgList.length;i++){
         var str = imgList[i];
         var className = str.substring(0,str.length-4);  //截取文件名获取类名
-        letterList[i] = $($('#template').html().replace('$url$','ting/'+item+'/'+str).replace('$imgClass$',className).replace('$divClass$',className +'D').replace('$content$',listP[i]).replace('$pClass$',className +'P'));
+        letterList[i] = $($('#template').html().replace('$url$','http://www.dadpat.com/apk/ABC/ting/'+item+'/'+str).replace('$imgClass$',className).replace('$divClass$',className +'D').replace('$content$',listP[i]).replace('$pClass$',className +'P'));
         $('#swiper-container1 .swiper-wrapper').append(letterList[i])
     }
 }
 for(var item2 in fileListPin){
     var pinList = fileListPin[item2];
     for(var j=0;j<pinList.length;j++){
-        $('#swiper-container2 .swiper-wrapper').append($($('#template2').html().replace('$url2$','pin/big/'+pinList[j])))
+        $('#swiper-container2 .swiper-wrapper').append($($('#template2').html().replace('$url2$','http://www.dadpat.com/apk/ABC/pin/big/'+pinList[j])))
     }
 }
 
@@ -87,7 +87,7 @@ var swiper1 = new Swiper('#swiper-container1', {
             // 获取当前图片的transform值
             var transForm = $('#swiper-container1 .swiper-scrollbar-drag')[0].style.transform;
             // 获取当前图片的transform的X值
-            var moveTransFormX = parseInt(transForm.slice(12,-13));   
+            var moveTransFormX = parseInt(transForm.slice(12,-13));
             //动态给星星赋值
             $('.moveXX').css('left',moveTransFormX +'px')
             $('.progress p').css('left',moveTransFormX +'px')
@@ -157,7 +157,10 @@ var swiper1 = new Swiper('#swiper-container1', {
         },
         slideChangeTransitionEnd: function () {
 
-        }
+        },
+        click: function(){
+            console.log(swiper1.activeIndex);
+        },
     }
 
 });

@@ -6,62 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>英文字母ABC-认一认</title>
     <link rel="stylesheet" href="css/common.css" type="text/css" />
-    <style>
-         /* 返回 */
-        .back{
-            height: 9%;
-            width: 5.3%;
-            position: absolute;
-            top: 5%;
-            left: 3%;
-        }
-        /* 喇叭 */
-        .laba{
-            height: 18.1%;
-            width: 10.2%;
-            position: absolute;
-            top: 5.2%;
-            left:44.9%;
-        }
-        /* 图片列表 */
-        .imgList{
-            width: 100%;
-            position: absolute;
-            top: 33.3%;
-            left: 0;
-            /* background-color: red; */
-            display: flex;
-        }
-        /* 图片 */
-        .imgList .imgT{
-            width: 100%;
-        }
-        /* 3张图 */
-        .imgList .dv3{
-            width: 33.3%;
-            text-align: center;
-        }
-        .imgList .dv3 .imgD3{
-            width: 14.2%;
-        }
-        /* 4张图 */
-        .imgList .dv4{
-            width: 25%;
-            text-align: center;
-        }
-        .imgList .dv4 .imgD4{
-            width: 19%;
-        }
-        /* 5张图 */
-        .imgList .dv5{
-            width: 20%;
-            text-align: center;
-        }
-        .imgList .dv5 .imgD5{
-            width: 23.7%;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="css/ren.css">
+    <link rel="stylesheet" href="css/animate.min.css">
 </head>
 <body>
     <!-- <div id="dv" style="background: url(ren.jpg) no-repeat;background-size: cover;position: relative"> -->
@@ -75,15 +21,15 @@
             <!-- template1 -->
         </div>
         <!-- 音频文件 -->
-        <audio src="audio/03ren_a.mp3"></audio>
-        <audio src="audio/03ren_a_pic2_apple.mp3"></audio>
-        <audio src="audio/03ren_a_pic3_alice.mp3"></audio>
-        <audio src="audio/03ren_a_pic4_juzi.mp3"></audio>
+        <div class="audioAll">
+            <!-- template2 -->
+        </div>
     </div>
 </body>
 <script src="js/common.js"></script>
 <script src="js/jquery.min.js"></script>
-<script src="ren/configRen.js"></script>
+<script src="http://www.dadpat.com/apk/ABC/ren/configRen.js"></script>
+<script src="js/letterJson.js"></script>
 
 <div id="template1" style="display: none">
     <div class="$classRen1$">
@@ -91,82 +37,9 @@
         <!-- <img src="image/3dui.png" class="$classRen2$"> -->
     </div>
 </div>
+<div id="template2" style="display: none">
+    <audio src="$audio$"></audio>
+</div>
 
-<script>
-//点击返回首页
-$('.back').click(function(){
-    window.location.href = 'index.html';
-})
-
-var arr = []; //存放的文件夹名(a,b,c,...)
-var num = 0; //arr的索引
-for(var itemRen in fileListRen){
-    arr.push(itemRen);
-}
-// console.log(arr)
-var listRen = fileListRen[arr[num]];
-var arrRandom = [];
-
-for(var i=0;i<listRen.length;i++){
-    $('.imgList').append($($('#template1').html().replace('$urlRen$','ren/'+arr[num]+'/'+listRen[i]).replace('$classRen1$','dv'+listRen.length)));
-    arrRandom[i]=i+1;
-}
-// 使用sort将原数组的顺序打乱，让有序变成无序
-arrRandom.sort(function(){
-  return Math.random() - 0.5;
-});
-var inx = '';  //动态传入类名
-var inx2 = '';  //动态传入类名
-
-function clickAll(inx,inx2) {
-    console.log(arrRandom)
-    $('.laba').click(function(){
-        console.log($('audio'))
-        if(arrRandom.length>0){
-            console.log(arrRandom[0])
-            if($('audio')[arrRandom[0]].paused){   
-                $('audio')[arrRandom[0]].play();
-                console.log($('audio')[arrRandom[0]].src)
-            }else{
-                $('audio')[arrRandom[0]].pause();
-            }
-            console.log(arrRandom)
-            arrRandom.shift();
-            console.log(arrRandom)
-        }       
-    })
-    $('.'+ inx +' .'+inx2).click(function(){
-        console.log(this)
-        // 添加对勾
-        var childNum = $(this)[0].parentNode.children.length;
-        if(childNum == 2){
-            return false
-        }else{
-            $(this).after('<img src="image/3dui.png" class="'+'imgD'+listRen.length+'">')
-        }
-        if($('.imgD'+listRen.length).length == listRen.length){
-            //移除所有动态加载的图片
-            $('.dv'+listRen.length).remove();
-            if(num == arr.length-1){
-                num = 0;
-            }else{
-                num++;
-            }
-            // 重新赋值
-            listRen = fileListRen[arr[num]];
-            for(var i=0;i<listRen.length;i++){
-                $('.imgList').append($($('#template1').html().replace('$urlRen$','ren/'+arr[num]+'/'+listRen[i]).replace('$classRen1$','dv'+listRen.length)));
-            }
-            clickAll('imgList','imgT')
-        }else{
-            // console.log('未显示全')
-        }
-    })
-}
-clickAll('imgList','imgT');
-
-
-
-
-</script>
+<script src="js/ren.js"></script>
 </html>
