@@ -55,8 +55,8 @@ document.onclick = function(){
 // 卡片
 var swiper2 = new Swiper('#swiper-container2', {
     spaceBetween: 30,  //在slide之间设置距离（单位px）
-    slidesPerView: 6,  //设置slider容器能够同时显示的slides数量(carousel模式)。
-    touchRatio: 0.2,  //触摸比例。触摸距离与slide滑动距离的比率。
+    slidesPerView: 'auto',  //设置slider容器能够同时显示的slides数量(carousel模式)。
+    //touchRatio: 0.2,  //触摸比例。触摸距离与slide滑动距离的比率。
     observer:true,//修改swiper自己或子元素时，自动初始化swiper
     observeParents:true,//修改swiper的父元素时，自动初始化swiper
     on:{
@@ -66,7 +66,11 @@ var swiper2 = new Swiper('#swiper-container2', {
         slideChangeTransitionEnd: function () {
 
         }
-    }
+    },
+    lazy: {
+        loadPrevNext: true,
+        loadPrevNextAmount: 10,  //设置在延迟加载图片时提前多少个slide。
+    },
 });
 //黑板
 var swiper1 = new Swiper('#swiper-container1', {
@@ -81,6 +85,9 @@ var swiper1 = new Swiper('#swiper-container1', {
     scrollbar: {
         el: '.swiper-scrollbar',
         hide: true,
+    },
+    lazy: {
+        loadPrevNext: true,
     },
     on:{
         slideChangeTransitionStart:function(){

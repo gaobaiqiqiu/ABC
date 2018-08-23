@@ -28,6 +28,58 @@
             top: 306px;
             left: 1327px;
         }
+        .left{
+            height: 546px;
+            width: 525px;
+            position: absolute;
+            top: 152px;
+            left: 849px;
+            transform-origin:right top;
+            animation:mymove2 5s infinite linear;
+        }
+        @keyframes mymove2{
+            0%{
+                transform:rotate(0); 
+            }
+            20%{
+                transform:rotate(5deg);
+            }
+            40%{
+                transform:rotate(0);
+            }
+            70%{
+                transform:rotate(-10deg);
+            }   
+            100%{
+                transform:rotate(0);
+            }
+        }
+        .right{
+            height: 369px;
+            width: 436px;
+            position: absolute;
+            top: 333px;
+            left: 615px;
+            transform-origin:0 0;
+            animation:mymove 5s infinite linear;
+        }
+        @keyframes mymove{
+            0%{
+                transform:rotate(0); 
+            }
+            25%{
+                transform:rotate(5deg);
+            }
+            50%{
+                transform:rotate(0);
+            }
+            75%{
+                transform:rotate(-5deg);
+            }
+            100%{
+                transform:rotate(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -35,13 +87,15 @@
         <img src="image/1ren.png" class="ren">
         <img src="image/1ting.png" class="ting">
         <img src="image/1pin.png" class="pin">
+        <img src="image/left.png" class="left">
+        <img src="image/right.png" class="right">
     </div>
 </body>
 <script src="js/common.js"></script>
 <script src="js/jquery.min.js"></script>
 <script>
     // 适配
-    var adaptationList = [".ren", ".ting", ".pin"];
+    var adaptationList = [".ren", ".ting", ".pin", ".left", ".right"];
     {
         var docuWidth = document.documentElement.clientWidth;  //可见区域宽度
         var docuHeight = document.documentElement.clientHeight; //可见区域高度     

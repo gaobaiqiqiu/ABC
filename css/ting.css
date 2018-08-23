@@ -21,7 +21,7 @@
 }
 .progress span:nth-child(1){
     color:#4EB7E3;
-    text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.6);
+    text-shadow:rgba(255, 255, 255, 0.6) 0.06rem 0 0,rgba(255, 255, 255, 0.6) 0.06rem 0,rgba(255, 255, 255, 0.6) -0.06rem 0 0,rgba(255, 255, 255, 0.6) 0 -0.06rem 0;
 }
 .progress .lastZ{
     color:#ffffff;
@@ -77,6 +77,12 @@
 .kpList #swiper-container2{
     height: 100%;
     width: 100%;
+}
+.kpList #swiper-container2 .swiper-slide{
+    height: 93%;
+    width: 11.9%;
+    border: 0.04rem solid #56b5dc;
+    border-radius: 50%;
 }
 .kpList .swiper-slide img{
     height: 100%;
@@ -154,6 +160,11 @@
     transform: scale(0.5);
     text-align: center;
 
+}
+.blackboard .danCi1P:first-child:first-letter,
+.blackboard .danCi2P:first-child:first-letter,
+.blackboard .danCi3P:first-child:first-letter{
+    color: red;
 }
 /* 句子 */
 .blackboard .juZi{

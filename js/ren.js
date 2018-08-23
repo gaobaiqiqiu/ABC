@@ -20,15 +20,17 @@ for(var i=0;i<listRen.length;i++){
 arrRandom.sort(function(){
   return Math.random() - 0.5;
 });
+console.log(arrRandom)
 var randVal = parseInt('');  //数组中索引为0的值
 var deletOne = '';  //截取的数组中的第一个 
 $('.laba').click(function(){
+    console.log('喇叭')
     randVal = arrRandom[0]-1;
     if($('audio')[randVal].paused){
         $('audio')[randVal].play(); 
     }else{
         $('audio')[randVal].pause();
-        $('audio')[randVal].load();
+        // $('audio')[randVal].load();
     }
 })
 function chongFu(){
@@ -44,8 +46,12 @@ function chongFu(){
             if($(this)[0].children.length<2){
                 $(this).append('<img src="image/3dui.png" class="'+'imgD'+listRen.length+'">');
                 deletOne = arrRandom.shift(); 
+                randVal = arrRandom[0]-1;
                 if(arrRandom.length>0){
                     $('audio')[deletOne-1].pause();
+                    setTimeout(function(){
+                        $('audio')[randVal].play();
+                    },1000)           
                 }
                 var duiLength = $('.imgD'+listRen.length).length; //对勾的长度
                 if(duiLength == listRen.length){
