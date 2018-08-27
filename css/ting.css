@@ -101,7 +101,7 @@
 }
 .blackboard .swiper-container{
     height: 100%;
-    width: 100%;
+    width: 93%;
 }
 /*引入外部字体*/
 @font-face{
@@ -114,79 +114,22 @@
 
 
 /* 字母 */
-.blackboard .aLetter{
+.blackboard .letter{
     width: 42.4%;
     margin-left: 28.8%;
     margin-top: 10%;
 }
-.blackboard .aLetterP{
+.blackboard .letterAll1,
+.blackboard .letterAll2,
+.blackboard .letterAll3,
+.blackboard .letterAll4{
+    width: 100%;
+    margin-top: 4%;
+}
+.opac{
     opacity: 0;
 }
-/* 单词 */
-.blackboard .danCi1,
-.blackboard .danCi2,
-.blackboard .danCi3{
-    height: 56.5%;
-    width: 29.2%;
-    position: absolute;
-    top: 16.1%;
-    left: 11.5%;
-}
-.blackboard .danCi1D,
-.blackboard .danCi2D,
-.blackboard .danCi3D{
-    height: 82%;
-    width: 57%;
-    position: relative;
-    top: 0;
-    left: 18%;
-    white-space:nowrap;
-    /* background-color: red; */
-    margin:auto;
-    
-}
-.blackboard .danCi1P,
-.blackboard .danCi2P,
-.blackboard .danCi3P{
-    width: 100%;
-    position: absolute;
-    top: 40%;
-    left: 0;
-    transform: translateY(-50%);
-    display: inline-block;
-    font-family: 'comfortaaBold';
-    font-size: 2rem; 
-    letter-spacing: -7px;
-    transform: scale(0.5);
-    text-align: center;
 
-}
-.blackboard .danCi1P:first-child:first-letter,
-.blackboard .danCi2P:first-child:first-letter,
-.blackboard .danCi3P:first-child:first-letter{
-    color: red;
-}
-/* 句子 */
-.blackboard .juZi{
-    height: 55.6%;
-    width: 47.9%;
-    position: absolute;
-    top: 5.8%;
-    left: 25.1%;
-}
-.blackboard .juZiD{
-    height: 17%;
-    width: 100%;
-    position: absolute;
-    bottom: 18%;
-    text-align: center;
-}
-.blackboard .juZiP{
-    font-family: 'comfortaaBold';  
-    font-size: 0.6rem;
-    letter-spacing: 0px;
-    transform: scale(0.9);
-}
 /* 音频按钮 */
 .live{
     width: 9.2%;
