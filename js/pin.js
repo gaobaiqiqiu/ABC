@@ -6,7 +6,7 @@ for(var item in fileListPin){
     var pinList = fileListPin[item];
     // console.log(pinList)
     for(var i=0;i<pinList.length;i++){
-        var imgAll =$($('#template').html().replace('$urlPin$','http://www.dadpat.com/apk/ABC/pin/'+item+'/'+pinList[i]))[0]
+        var imgAll =$($('#template').html().replace('$urlPin$','http://www.dadpat.com/app/ABC/pin/'+item+'/'+pinList[i]))[0]
         $('.swiper-container .swiper-wrapper').append(imgAll)
     }
 }

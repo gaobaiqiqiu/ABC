@@ -7,14 +7,14 @@ for( var item in fileListTing ){  //fileList文件列表
     for(var i=0;i<imgList.length;i++){
         var str = imgList[i];
         var className = str.substring(0,str.length-4);  //截取文件名获取类名
-        letterList[i] = $($('#template').html().replace('$url$','http://www.dadpat.com/apk/ABC/ting/'+item+'/'+str).replace('$class$',className).replace('$content$',listP[i]));
+        letterList[i] = $($('#template').html().replace('$url$','http://www.dadpat.com/app/ABC/ting/'+item+'/'+str).replace('$class$',className).replace('$content$',listP[i]));
         $('#swiper-container1 .swiper-wrapper').append(letterList[i])
     }
 }
 for(var item2 in fileListPin){
     var pinList = fileListPin[item2];
     for(var j=0;j<pinList.length;j++){
-        $('#swiper-container2 .swiper-wrapper').append($($('#template2').html().replace('$url2$','http://www.dadpat.com/apk/ABC/pin/big/'+pinList[j])))
+        $('#swiper-container2 .swiper-wrapper').append($($('#template2').html().replace('$url2$','http://www.dadpat.com/app/ABC/pin/big/'+pinList[j])))
     }
 }
 
