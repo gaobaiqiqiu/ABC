@@ -42,11 +42,8 @@ var mySwiper = new Swiper('.swiper-container', {
             pg.hasStart = 0;
             imgDongTai = $('.swiper-slide-active img').attr("src")  //动态获取图片的src，给缩略图赋值
             audioDongTai = imgDongTai.substring(0, imgDongTai.length - 4);  //动态获取图片的src，拿相对于的音频文件
-            // $(function(){
-            //     pg = new puzzleGame({'img': $('.swiper-slide-active img').attr("src")});      
-            // });
-
             puzzleImg = $('.swiper-slide-active img');
+            console.log(puzzleImg)
             $(function () {
                 $('.pinTu div').remove();
                 pinTuGame(puzzleImg);
@@ -64,14 +61,16 @@ var mySwiper = new Swiper('.swiper-container', {
 
 //=============================================================================================================================
 
-// var puzzleImg = $('.swiper-slide-active img');
+// 拼图游戏
+console.log($('.swiper-slide-active img'))
+pinTuGame($('.swiper-slide-active img'));
 function pinTuGame(puzzleImg) {
-    var imgSrc = puzzleImg[0].currentSrc;
+    var imgSrc = puzzleImg[0].src;
     //图片整体的宽高
     var imgWidth = parseInt(puzzleImg[0].width);
     var imgHeight = parseInt(puzzleImg[0].height);
     //3*3排列
-    var num = 4;
+    var num = 3;
     //每一块碎片的宽高
     var cellWidth = parseInt(imgWidth / num);
     var cellHeight = parseInt(imgHeight / num);
@@ -95,13 +94,12 @@ function pinTuGame(puzzleImg) {
                 'backgroundPosition': (-j) * cellWidth + 'px ' + (-i) * cellHeight + 'px',
                 "backgroundSize": imgWidth + "px " + imgHeight + "px",
             });
-            $(cell)[0].setAttribute('data-index', i * num + j)
+            // $(cell)[0].setAttribute('data-index', i * num + j)
             $('.pinTu').append(cell);
         }
     }
 
     var randomPool = [];
-
     function randomArea() {
         errorArr = [];
         randomPool = [];
@@ -266,11 +264,4 @@ function pinTuGame(puzzleImg) {
         }
     }
 }
-
-pinTuGame($('.swiper-slide-active img'))
-
-
-
-
-
 //=============================================================================================================================
