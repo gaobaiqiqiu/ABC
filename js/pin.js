@@ -131,7 +131,6 @@ function pinTuGame(puzzleImg) {
     }
     //开关
     var self = 0;
-    var switching = false;
     $('.imgCell').click(function () {
         console.log(self)
         if (self == 0) {
@@ -159,11 +158,34 @@ function pinTuGame(puzzleImg) {
         var img = null;
         $('.imgCell').on('touchstart', function (e) {
             //缓存起点位置
+
+            if ( img ) {
+                return;
+            }
+
+            // if (img) {
+            //     var index = -1;
+
+            //     for (var i = 0; i < imgCell.length; ++i) {
+            //         if ( imgCell[i] === img ) {
+            //             index = i;
+            //             break;
+            //         }
+            //     }
+
+            //     $(img).animate({
+            //         left: offset.x + errorArr.indexOf(index) % 3 * cellWidth + 'px',
+            //         top: offset.y + Math.floor(errorArr.indexOf(index) / 3) * cellHeight + 'px',
+            //     }, 500, "", function () {
+
+            //     });
+            // }
+            
             img = this;
         })
         $('.imgCell').on('touchmove', function (e) {
 
-            if (img !== this || switching) return;
+            if (img !== this ) return;
             this.style["z-index"] = 1000;
             var sizeHalf = { width: $(this).width() * 0.5, height: $(this).height() * 0.5 };
             var position = { x: e.targetTouches[0].pageX - sizeHalf.width, y: e.targetTouches[0].pageY - sizeHalf.height };
@@ -185,7 +207,7 @@ function pinTuGame(puzzleImg) {
         })
         $('.imgCell').on('touchend', function (e) {
 
-            if (switching) return;
+            if  (img !== this ) return;
 
             var x = e.changedTouches[0].pageX - offset.x;
             var y = e.changedTouches[0].pageY - offset.y;
@@ -212,21 +234,11 @@ function pinTuGame(puzzleImg) {
 
             imgCell[errorArr[to]].style["z-index"] = 999;
 
-            var animateEnd = 0;
-            switching = true;
             $(imgCell[errorArr[from]]).animate({
                 left: offset.x + to % 3 * cellWidth + 'px',
                 top: offset.y + Math.floor(to / 3) * cellHeight + 'px',
             }, 500, "", function () {
                 this.style["z-index"] = 10;
-                if (++animateEnd === 2) {
-                    swtichIndex(from, to);
-                    switching = false;
-                }
-
-                if (from === to) {
-                    switching = false;
-                }
             });
 
             if (to !== from) {
@@ -235,12 +247,14 @@ function pinTuGame(puzzleImg) {
                     top: offset.y + Math.floor(from / 3) * cellHeight + 'px',
                 }, 500, "", function () {
                     this.style["z-index"] = 10;
-                    if (++animateEnd === 2) {
-                        swtichIndex(from, to);
-                        switching = false;
-                    }
                 });
             }
+
+            if (from !== to)
+            {
+                swtichIndex(from, to);
+            }
+            
             img = null;
         })
     }
