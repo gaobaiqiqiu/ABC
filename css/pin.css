@@ -1,3 +1,7 @@
+ #dv{
+    overflow: hidden;
+ }
+ 
  /* 返回 */
  .back{
     height: 9%;
@@ -32,11 +36,9 @@
     left: 0; */
     height: 74.3%;
     width: 41.9%;
-    position: absolute;
-    top: 13%;
-    left: 29.2%;
+    /* position: absolute; */
 }
-#imgArea div.imgCell{
+.imgCell{
     float:left;
     width:73px;
     height:73px;

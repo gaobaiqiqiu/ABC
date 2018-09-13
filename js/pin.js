@@ -11,6 +11,18 @@ for (var item in fileListPin) {
     }
 }
 
+//
+function arrayRemove(array, dx) {
+    if (isNaN(dx) || dx > array.length) { return false; }
+    for (var i = 0, n = 0; i < array.length; i++) {
+        if (array[i] != array[dx]) {
+            array[n++] = array[i]
+        }
+    }
+
+    array.length = array.length - 1;
+}
+
 var imgDongTai = '';
 var pg = '';
 //拼图
@@ -33,12 +45,11 @@ var mySwiper = new Swiper('.swiper-container', {
             // $(function(){
             //     pg = new puzzleGame({'img': $('.swiper-slide-active img').attr("src")});      
             // });
-            puzzleImg = $('.swiper-slide-active img');
-            
 
-            $(function(){
-                $('#imgArea div').remove();
-                pinTu(puzzleImg);     
+            puzzleImg = $('.swiper-slide-active img');
+            $(function () {
+                $('.pinTu div').remove();
+                pinTuGame(puzzleImg);
             });
             // 右上角缩图
             $('.smallImg img').attr('src', imgDongTai)
@@ -53,165 +64,210 @@ var mySwiper = new Swiper('.swiper-container', {
 
 //=============================================================================================================================
 
-function pinTu(puzzleImg) {
-    // var puzzleImg = $('.swiper-slide-active img');
+// var puzzleImg = $('.swiper-slide-active img');
+function pinTuGame(puzzleImg) {
     var imgSrc = puzzleImg[0].currentSrc;
     //图片整体的宽高
     var imgWidth = parseInt(puzzleImg[0].width);
     var imgHeight = parseInt(puzzleImg[0].height);
     //3*3排列
-    var num = 3;
+    var num = 4;
     //每一块碎片的宽高
     var cellWidth = parseInt(imgWidth / num);
     var cellHeight = parseInt(imgHeight / num);
     var correctArr = [];  //正确的数组
-    var errorArr = [];
+    var errorArr = [];  //打乱的数组
+    var windowSize = { width: $(window).width(), height: $(window).height() };  //屏幕的宽高
+    var offset = { x: windowSize.width * 0.292, y: windowSize.height * 0.13 };  //拼图的位置
+    // $('#imgArea').css( { "top": offset.y + "px", "left": offset.x + "px" } );
     for (var i = 0; i < num; i++) {
         for (var j = 0; j < num; j++) {
             //将碎片所属div的下标存入数组，用于最终校验是否排序完成
             correctArr.push(i * num + j);
-            errorArr.push(i * num + j);
             cell = document.createElement("div");
             cell.className = "imgCell";
             $(cell).css({
                 'width': (cellWidth - 2) + 'px',
                 'height': (cellHeight - 2) + 'px',
-                'left': j * cellWidth + 'px',
-                'top': i * cellHeight + 'px',
+                'left': offset.x + j * cellWidth + 'px',
+                'top': offset.y + i * cellHeight + 'px',
                 "background": "url('" + imgSrc + "')",
                 'backgroundPosition': (-j) * cellWidth + 'px ' + (-i) * cellHeight + 'px',
                 "backgroundSize": imgWidth + "px " + imgHeight + "px",
             });
             $(cell)[0].setAttribute('data-index', i * num + j)
-            $('#imgArea').append(cell);
+            $('.pinTu').append(cell);
         }
     }
-    errorArr.sort(function () {
-        return Math.random() - 0.5;
-    });
-    var imgAll = document.querySelectorAll('#imgArea .imgCell');
-    var imgBox = document.querySelector('#imgArea');
+
+    var randomPool = [];
+
+    function randomArea() {
+        errorArr = [];
+        randomPool = [];
+        for (var item in correctArr) {
+            randomPool.push(correctArr[item]);
+        }
+
+        for (var key in correctArr) {
+            var ranIndex, ranNumber;
+
+            do {
+                ranIndex = Math.floor(Math.random(new Date().getTime()) * randomPool.length);
+                ranIndex = ranIndex === randomPool.length ? ranIndex - 1 : ranIndex;
+
+                ranNumber = randomPool[ranIndex];
+
+            } while (ranNumber === correctArr[key] && randomPool.length > 1)
+
+            arrayRemove(randomPool, ranIndex);
+
+            errorArr[key] = ranNumber;
+        }
+    }
+
+
+    function init() {
+        // 初始化内容 
+        touch();
+    }
+    //开关
     var self = 0;
-    $('#imgArea').click(function () {
-        //打乱图片
+    var switching = false;
+    $('.imgCell').click(function () {
+        console.log(self)
         if (self == 0) {
+            touch();
+            replace();
+            // init();
             self = 1;
-            for (var i = 0; i < errorArr.length; i++) {
-                if (errorArr != correctArr) {
-                    var _left = imgAll[correctArr[i]].style.left;
-                    imgAll[correctArr[i]].style.left = imgAll[errorArr[i]].style.left;
-                    imgAll[errorArr[i]].style.left = _left;
-                    var _top = imgAll[correctArr[i]].style.top;
-                    imgAll[correctArr[i]].style.top = imgAll[errorArr[i]].style.top;
-                    imgAll[errorArr[i]].style.top = _top;
+        }
+    })
+    var imgCell = document.querySelectorAll('.imgCell');
+    //打乱图片
+    function replace() {
+        for (var key in errorArr) {
+            $(imgCell[errorArr[key]]).animate({
+                left: offset.x + key % 3 * cellWidth + 'px',
+                top: offset.y + Math.floor(key / 3) * cellHeight + 'px',
+            }, 500, "", function () {
 
-                    var _index = imgAll[correctArr[i]].getAttribute("data-index");
-                    imgAll[correctArr[i]].setAttribute("data-index", imgAll[errorArr[i]].getAttribute("data-index"));
-                    imgAll[errorArr[i]].setAttribute("data-index", _index);
-                }
-            }
+            });
+            // imgCell
         }
-        var info = {
-            x: 0, y: 0, top: 0, left: 0
-        }
-        $('#imgArea .imgCell').on('touchstart', function (e) {
-            info.x = e.targetTouches[0].pageX;
-            info.y = e.targetTouches[0].pageY;
-            info.top = parseInt(this.style.top);
-            info.left = parseInt(this.style.left);
-            this.oriLeft = info.left;
-            this.oriTop = info.top;
+    }
+    function touch() {
+        randomArea();
+        var img = null;
+        $('.imgCell').on('touchstart', function (e) {
+            //缓存起点位置
+            img = this;
         })
-        $('#imgArea .imgCell').on('touchmove', function (e) {
+        $('.imgCell').on('touchmove', function (e) {
+
+            if (img !== this || switching) return;
             this.style["z-index"] = 1000;
-            var newTop = info.top - info.y + e.targetTouches[0].pageY;
-            var newLeft = info.left - info.x + e.targetTouches[0].pageX;
-
-            this.style.left = newLeft + "px";
-            this.style.top = newTop + "px";
-        })
-        $('#imgArea .imgCell').on('touchend', function (e) {
-            // console.log('left:', this.style.left, '--------top:', this.style.top)
-            this.style.transition = " all .5s";
-            // this.style["z-index"] = 0;
-            //对每 个元素进行检测
-            // x > 元素的.offsetLeft && x <元素的.offsetLeft+ 100
-            // y > 元素的.offsetTop && x <元素的.offsetTop+ 100
-            var x = e.changedTouches[0].pageX - imgBox.offsetLeft,
-                y = e.changedTouches[0].pageY - imgBox.offsetTop;
-            //console.info(x, y);//.targetTouches[0].pageX,e.targetTouches[0].pageY);
-            //通过当前 x,y来找到应该要交换的元素是哪个？
-            var obj = findSwtichBox(this, x, y);
-            if (obj === this) {
-                //从哪里来就回到哪里去。
-                obj.style.left = obj.oriLeft + "px";
-                obj.style.top = obj.oriTop + "px";
-            } else {
-                swtichBoxs(this, obj);
-                console.log(isOk())
-                setTimeout(function () {
-                    if (isOk()) {//完成了
-                        alert('成功')
-                        $('#imgArea .imgCell').off('touchstart').off('touchmove').off('touchend');
-                        self = 0;
-                    }
-                }, 600)
+            var sizeHalf = { width: $(this).width() * 0.5, height: $(this).height() * 0.5 };
+            var position = { x: e.targetTouches[0].pageX - sizeHalf.width, y: e.targetTouches[0].pageY - sizeHalf.height };
+            if (position.x > windowSize.width - sizeHalf.width) {
+                position.x = windowSize.width - sizeHalf.width;
             }
-        })
-
-        function isOk() {
-            // 思路：对每一个box设置一个“序号”（data-index）属性。每次交换后，都检查一下当前的元素的顺序是否与成功的序号是一致的。
-            // 获取所有的元素的序号
-            var str = "";
-            for (var i = 0; i < imgAll.length; i++) {
-                str += imgAll[i].getAttribute("data-index");
+            if (position.x < 0) {
+                position.x = 0;
             }
-            //console.info(str);
-            return str == "012345678";
+            if (position.y > windowSize.height - sizeHalf.height) {
+                position.y = windowSize.height - sizeHalf.height;
+            }
+            if (position.y < 0) {
+                position.y = 0;
+            }
 
-        }
-        //交换a，b元素的位置
-        function swtichBoxs(oriEle, targetEle) {
-            //debugger;
-            // var a = 10;
-            // var b = 20;   
-            var _top = oriEle.oriTop;
-            //console.log(_top)          // var t = a;
-            oriEle.style.top = targetEle.style.top; // a = b;
-            targetEle.style.top = _top + "px";                // b = t;
-            //把targetEle的top设置为oriEle的oriTop;
-            var _left = oriEle.oriLeft;                // var t = a;
-            oriEle.style.left = targetEle.style.left; // a = b;
-            targetEle.style.left = _left + "px";                // b = t;
-            //console.info(a);
-            //console.info(b);
-            //
-            //交换data-index值
-            var _index = oriEle.getAttribute("data-index");
-            oriEle.setAttribute("data-index", targetEle.getAttribute("data-index"));
-            targetEle.setAttribute("data-index", _index);
+            this.style.left = position.x + "px";
+            this.style.top = position.y + "px";
+        })
+        $('.imgCell').on('touchend', function (e) {
 
-        }
-        //根据x,y的值，看当前的x，y落在box中的哪一个元素上。
-        function findSwtichBox(obj, x, y) {
-            //自己不参与检查       
-            for (var i = 0; i < imgAll.length; i++) {
-                if (obj !== imgAll[i]) {
-                    var t1 = x > imgAll[i].offsetLeft && x < (imgAll[i].offsetLeft + 100);
-                    var t2 = y > imgAll[i].offsetTop && y < (imgAll[i].offsetTop + 100);
-                    if (t1 && t2) {
-                        //console.info(boxs[i]); 找到目标
-                        return imgAll[i];
-                    }
+            if (switching) return;
+
+            var x = e.changedTouches[0].pageX - offset.x;
+            var y = e.changedTouches[0].pageY - offset.y;
+
+            var from = -1;
+            var to = -1;
+
+            for (var i = 0; i < 9; ++i) {
+                var beginX = i % 3 * cellWidth;
+                var beginY = Math.floor(i / 3) * cellHeight;
+
+                if (imgCell[errorArr[i]] === this) {
+                    from = i;
                 }
 
+                if (x > beginX && x < beginX + cellWidth && y > beginY && y < beginY + cellHeight) {
+                    to = i;
+                }
             }
-            return obj; //没有找到目标，即返回自己
-        }
-    });
 
+            if (to < 0) {
+                to = from;
+            }
+
+            imgCell[errorArr[to]].style["z-index"] = 999;
+
+            var animateEnd = 0;
+            switching = true;
+            $(imgCell[errorArr[from]]).animate({
+                left: offset.x + to % 3 * cellWidth + 'px',
+                top: offset.y + Math.floor(to / 3) * cellHeight + 'px',
+            }, 500, "", function () {
+                this.style["z-index"] = 10;
+                if (++animateEnd === 2) {
+                    swtichIndex(from, to);
+                    switching = false;
+                }
+
+                if (from === to) {
+                    switching = false;
+                }
+            });
+
+            if (to !== from) {
+                $(imgCell[errorArr[to]]).animate({
+                    left: offset.x + from % 3 * cellWidth + 'px',
+                    top: offset.y + Math.floor(from / 3) * cellHeight + 'px',
+                }, 500, "", function () {
+                    this.style["z-index"] = 10;
+                    if (++animateEnd === 2) {
+                        swtichIndex(from, to);
+                        switching = false;
+                    }
+                });
+            }
+            img = null;
+        })
+    }
+    // //交换两个下标
+    function swtichIndex(oriIndex, targetIndex) {
+        var tmp = errorArr[oriIndex];
+        errorArr[oriIndex] = errorArr[targetIndex];
+        errorArr[targetIndex] = tmp;
+
+        var isOk = true;
+        for (var i = 0; i < errorArr.length - 1; ++i) {
+            if (errorArr[i] > errorArr[i + 1]) {
+                isOk = false;
+                break;
+            }
+        }
+
+        if (isOk) {
+            self = 0;
+            console.log("游戏结束");
+        }
+    }
 }
-pinTu($('.swiper-slide-active img'))
+
+pinTuGame($('.swiper-slide-active img'))
 
 
 
