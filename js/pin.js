@@ -2,16 +2,21 @@
 $('.back').click(function () {
     window.location.href = 'index.html';
 })
+// 音频文件
+var audioAll = [];
+for(var index in audioList){
+    audioAll = audioAll.concat(audioList[index])
+}
+
 for (var item in fileListPin) {
     var pinList = fileListPin[item];
-    // console.log(pinList)
     for (var i = 0; i < pinList.length; i++) {
-        var imgAll = $($('#template').html().replace('$urlPin$', 'http://www.dadpat.com/app/ABC/pin/' + item + '/' + pinList[i]))[0]
+        var imgAll = $($('#template').html().replace('$urlPin$', 'http://www.dadpat.com/app/ABC/pin/' + item + '/' + pinList[i]).replace('$audio$','http://www.dadpat.com/app/ABC/audio/'+audioAll[i]))
         $('.swiper-container .swiper-wrapper').append(imgAll)
     }
 }
 
-//
+
 function arrayRemove(array, dx) {
     if (isNaN(dx) || dx > array.length) { return false; }
     for (var i = 0, n = 0; i < array.length; i++) {
@@ -19,7 +24,6 @@ function arrayRemove(array, dx) {
             array[n++] = array[i]
         }
     }
-
     array.length = array.length - 1;
 }
 
@@ -43,10 +47,17 @@ var mySwiper = new Swiper('.swiper-container', {
             imgDongTai = $('.swiper-slide-active img').attr("src")  //动态获取图片的src，给缩略图赋值
             audioDongTai = imgDongTai.substring(0, imgDongTai.length - 4);  //动态获取图片的src，拿相对于的音频文件
             puzzleImg = $('.swiper-slide-active img');
-            console.log(puzzleImg)
             $(function () {
                 $('.pinTu div').remove();
+
+                // 音乐暂停
+                if(imgSibling){
+                    imgSibling.pause();
+                    imgSibling.load();
+                }
                 pinTuGame(puzzleImg);
+                
+               
             });
             // 右上角缩图
             $('.smallImg img').attr('src', imgDongTai)
@@ -63,8 +74,10 @@ var mySwiper = new Swiper('.swiper-container', {
 
 // 拼图游戏
 console.log($('.swiper-slide-active img'))
+var imgSibling = '';
 pinTuGame($('.swiper-slide-active img'));
 function pinTuGame(puzzleImg) {
+    imgSibling = puzzleImg[0].nextElementSibling;
     var imgSrc = puzzleImg[0].src;
     //图片整体的宽高
     var imgWidth = parseInt(puzzleImg[0].width);
@@ -132,7 +145,7 @@ function pinTuGame(puzzleImg) {
     //开关
     var self = 0;
     $('.imgCell').click(function () {
-        console.log(self)
+        // console.log(self)
         if (self == 0) {
             touch();
             replace();
@@ -253,8 +266,7 @@ function pinTuGame(puzzleImg) {
             if (from !== to)
             {
                 swtichIndex(from, to);
-            }
-            
+            }  
             img = null;
         })
     }
@@ -275,6 +287,12 @@ function pinTuGame(puzzleImg) {
         if (isOk) {
             self = 0;
             console.log("游戏结束");
+            if(imgSibling.paused){
+                imgSibling.play();
+            }else{
+                imgSibling.pause();
+                imgSibling.load();
+            }
         }
     }
 }

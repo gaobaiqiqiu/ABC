@@ -1,13 +1,23 @@
-var listZi = {a:['Aa'],b:['Bb']}
+// console.log(audioList)
+// var audioAll = [];
+// for(var item in audioList){
+//     audioAll = audioAll.concat(audioList[item])
+// }
+// console.log(audioAll)
 //动态获取图片
 for( var item in fileListTing ){  //fileList文件列表
     var imgList = fileListTing[item];  //图片列表
+    // console.log(imgList)
+    // console.log(audioList[item])
+    var vice_audioList = audioList[item];   //音频列表
     var listP = pList[item];
     var letterList = {};
     for(var i=0;i<imgList.length;i++){
         var str = imgList[i];
+        // console.log(str)
+        // console.log(vice_audioList[i])
         var className = str.substring(0,str.length-4);  //截取文件名获取类名
-        letterList[i] = $($('#template').html().replace('$url$','http://www.dadpat.com/app/ABC/ting/'+item+'/'+str).replace('$class$',className).replace('$content$',listP[i]));
+        letterList[i] = $($('#template').html().replace('$url$','http://www.dadpat.com/app/ABC/ting/'+item+'/'+str).replace('$class$',className).replace('$audio$','http://www.dadpat.com/app/ABC/audio/'+vice_audioList[i]).replace('$content$',listP[i]));
         $('#swiper-container1 .swiper-wrapper').append(letterList[i])
     }
 }
@@ -50,7 +60,6 @@ document.onclick = function(){
     $('.kpList').css('display','none');
     
 };
-
 
 // 卡片
 var swiper2 = new Swiper('#swiper-container2', {
@@ -109,13 +118,31 @@ var swiper1 = new Swiper('#swiper-container1', {
             //隐藏卡片列表
             $('.kpList').css('display','none');
 
+
+            if(audio){
+                audio.pause();
+                audio.load();
+            }
+
         },
         slideChangeTransitionEnd: function () {
 
         },
         click: function(){
-            console.log(swiper1.activeIndex);
+            // console.log(swiper1.activeIndex);
         },
     }
 
 });
+
+var audio = '';
+$('.live').click(function(){
+    audio = $('.swiper-slide-active audio')[0]; 
+    if(audio.paused){
+        audio.play();
+    }else{
+        audio.pause();
+        audio.load();
+
+    }
+})
