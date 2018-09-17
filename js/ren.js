@@ -24,7 +24,6 @@ console.log(arrRandom)
 var randVal = parseInt('');  //数组中索引为0的值
 var deletOne = '';  //截取的数组中的第一个 
 $('.laba').click(function(){
-    console.log('喇叭')
     randVal = arrRandom[0]-1;
     if($('audio')[randVal].paused){
         $('audio')[randVal].play(); 
@@ -36,7 +35,6 @@ function chongFu(){
     $('.imgList>.dv'+listRen.length).click(function(){
         var thisIndex = $(this).index();
         if(thisIndex==randVal){
-            console.log('匹配')
             $($(this)[0].children).addClass('animated pulse');
             var self = this;
             setTimeout(function(){
@@ -54,7 +52,6 @@ function chongFu(){
                 }
                 var duiLength = $('.imgD'+listRen.length).length; //对勾的长度
                 if(duiLength == listRen.length){
-                    console.log(122)
                     $('audio')[deletOne-1].pause();
                     setTimeout(function(){
                         //移除所有动态加载的图片

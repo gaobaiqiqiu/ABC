@@ -73,7 +73,6 @@ var mySwiper = new Swiper('.swiper-container', {
 //=============================================================================================================================
 
 // 拼图游戏
-console.log($('.swiper-slide-active img'))
 var imgSibling = '';
 pinTuGame($('.swiper-slide-active img'));
 function pinTuGame(puzzleImg) {
