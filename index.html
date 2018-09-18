@@ -144,9 +144,6 @@
             adaptation($(adaptationList[item]));
         }
     }
-    $('.back').click(function () {
-
-    })
     $('.ren').click(function () {
         window.location.href = 'ren.html';
     })
@@ -155,6 +152,10 @@
     })
     $('.pin').click(function () {
         window.location.href = 'pin.html';
+    })
+
+    $('.back').click(function () {
+        window.android.exitApp();
     })
 
 </script>

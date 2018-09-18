@@ -20,7 +20,6 @@ for(var i=0;i<listRen.length;i++){
 arrRandom.sort(function(){
   return Math.random() - 0.5;
 });
-console.log(arrRandom)
 var randVal = parseInt('');  //数组中索引为0的值
 var deletOne = '';  //截取的数组中的第一个 
 $('.laba').click(function(){
